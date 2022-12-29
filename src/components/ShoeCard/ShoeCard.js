@@ -5,6 +5,18 @@ import { COLORS, WEIGHTS } from '../../constants';
 import { formatPrice, pluralize, isNewShoe } from '../../utils';
 import Spacer from '../Spacer';
 
+const STYLES = {
+  "on-sale": {
+    backgroundColor: COLORS.primary,
+  },
+  "new-release": {
+    backgroundColor: COLORS.secondary,
+  },
+  "default": {
+    backgroundColor: COLORS.primary,
+  }
+}
+
 const ShoeCard = ({
   slug,
   name,
@@ -31,6 +43,8 @@ const ShoeCard = ({
       ? 'new-release'
       : 'default'
 
+  const style = STYLES[variant];
+
   return (
     <Link href={`/shoe/${slug}`}>
       <Wrapper>
@@ -47,6 +61,7 @@ const ShoeCard = ({
             <ColorInfo>{pluralize('Color', numOfColors)}</ColorInfo>
           </Row>
         </RowWrapper>
+        {variant && variant !== "default" && <SalePrice style={{"--background-color": style.backgroundColor}}>{variant}</SalePrice>}
       </Wrapper>
     </Link>
   );
@@ -58,6 +73,7 @@ const Link = styled.a`
 `;
 
 const Wrapper = styled.article`
+  position: relative;
 `;
 
 const ImageWrapper = styled.div`
@@ -65,6 +81,7 @@ const ImageWrapper = styled.div`
 `;
 
 const Image = styled.img`
+  border-radius: 16px 16px 4px 4px;
   line-height: 1;
   width: 100%;
 `;
@@ -91,7 +108,14 @@ const ColorInfo = styled.p`
 
 const SalePrice = styled.span`
   font-weight: ${WEIGHTS.medium};
-  color: ${COLORS.primary};
+  color: ${COLORS.white};
+  background-color: var(--background-color);
+  
+  position: absolute;
+  top: 16px;
+  right: -8px;
+  
+  padding: 8px 10px;
 `;
 
 export default ShoeCard;
