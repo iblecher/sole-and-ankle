@@ -5,8 +5,8 @@ import { WEIGHTS } from '../../constants';
 
 const Logo = (props) => {
   return (
-    <Link href="/">
-      <Wrapper {...props}>Sole&amp;Ankle</Wrapper>
+    <Link href="/" {...props}>
+      <Wrapper >Sole&amp;Ankle</Wrapper>
     </Link>
   );
 };
